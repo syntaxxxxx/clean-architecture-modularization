@@ -1,0 +1,41 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+kapt {
+    correctErrorTypes = true
+    useBuildCache = true
+}
+
+android {
+
+    compileSdk rootProject.ext.compileSdk
+
+    defaultConfig {
+        minSdk rootProject.ext.minSdk
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+
+    implementation project(":domain")
+
+    implementation rootProject.ext.main.coreKtx
+    implementation rootProject.ext.main.appCompat
+
+    implementation rootProject.ext.architectureComponents.lifecycleKtx
+    implementation rootProject.ext.architectureComponents.livedataKtx
+    implementation rootProject.ext.architectureComponents.roomKtx
+    kapt rootProject.ext.architectureComponents.roomCompiler
+    annotationProcessor rootProject.ext.architectureComponents.roomCompiler
+
+    implementation rootProject.ext.misc.coroutinesCore
+    implementation rootProject.ext.misc.coroutinesAndroid
+}
